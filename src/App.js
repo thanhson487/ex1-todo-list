@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
-
+import nextId from "react-id-generator";
+import "./App.scss";
+import FormTodo from "./components/FormTodo";
+import ShowTodo from "./components/ShowTodo";
+import React, { useState } from "react";
 function App() {
+  const getLocal = JSON.parse(localStorage.getItem("arrayListTodo"));
+  console.log(getLocal);
+
+  const [arrList, setArrList] = useState(getLocal || []);
+
+  const dataShare = (dataForm) => {
+    const id = nextId();
+    const arrListNew = [...arrList];
+    arrListNew.push({
+      ...dataForm,
+      id,
+    });
+
+    localStorage.setItem("arrayListTodo", JSON.stringify(arrListNew));
+
+    setArrList([...arrListNew]);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <FormTodo dataShare={dataShare} />
+        <ShowTodo arrList={arrList} />
+      </div>
     </div>
   );
 }

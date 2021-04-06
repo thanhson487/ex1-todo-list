@@ -1,0 +1,56 @@
+.listTodo {
+  display: flex;
+  flex-direction: column;
+
+  list-style: none;
+
+  border-bottom: 1px solid rgb(168, 165, 165);
+
+  margin-top: 10px;
+  .status--success {
+    color: green;
+  }
+  .status--prosser {
+    color: rgb(250, 219, 82);
+  }
+
+  li {
+    &:nth-child(1) {
+      font-size: 1.3rem;
+    }
+    &:nth-child(2) {
+      font-size: 1rem;
+      font-weight: 500;
+
+      margin-top: 5px;
+    }
+
+    &:nth-child(3) {
+      align-self: flex-end;
+
+      .delete {
+        font-size: 1.1rem;
+
+        margin-right: 10px;
+        padding: 10px;
+
+        cursor: pointer;
+
+        &:hover {
+          font-weight: 700;
+        }
+      }
+      .edit {
+        font-size: 1.1rem;
+
+        padding: 10px;
+
+        cursor: pointer;
+
+        &:hover {
+          font-weight: 1000;
+        }
+      }
+    }
+  }
+}
