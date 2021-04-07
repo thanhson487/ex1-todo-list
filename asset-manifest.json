@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/ex1-todo-list/static/css/main.89c6c6a0.chunk.css",
-    "main.js": "/ex1-todo-list/static/js/main.13430b6a.chunk.js",
-    "main.js.map": "/ex1-todo-list/static/js/main.13430b6a.chunk.js.map",
+    "main.css": "/ex1-todo-list/static/css/main.e772f827.chunk.css",
+    "main.js": "/ex1-todo-list/static/js/main.69d262ae.chunk.js",
+    "main.js.map": "/ex1-todo-list/static/js/main.69d262ae.chunk.js.map",
     "runtime-main.js": "/ex1-todo-list/static/js/runtime-main.2b4081a6.js",
     "runtime-main.js.map": "/ex1-todo-list/static/js/runtime-main.2b4081a6.js.map",
     "static/js/2.9d93f45f.chunk.js": "/ex1-todo-list/static/js/2.9d93f45f.chunk.js",
@@ -10,14 +10,14 @@
     "static/js/3.76e9a7f6.chunk.js": "/ex1-todo-list/static/js/3.76e9a7f6.chunk.js",
     "static/js/3.76e9a7f6.chunk.js.map": "/ex1-todo-list/static/js/3.76e9a7f6.chunk.js.map",
     "index.html": "/ex1-todo-list/index.html",
-    "static/css/main.89c6c6a0.chunk.css.map": "/ex1-todo-list/static/css/main.89c6c6a0.chunk.css.map",
+    "static/css/main.e772f827.chunk.css.map": "/ex1-todo-list/static/css/main.e772f827.chunk.css.map",
     "static/js/2.9d93f45f.chunk.js.LICENSE.txt": "/ex1-todo-list/static/js/2.9d93f45f.chunk.js.LICENSE.txt",
     "static/media/App.scss": "/ex1-todo-list/static/media/images_background.9e5dc32b.jpeg"
   },
   "entrypoints": [
     "static/js/runtime-main.2b4081a6.js",
     "static/js/2.9d93f45f.chunk.js",
-    "static/css/main.89c6c6a0.chunk.css",
-    "static/js/main.13430b6a.chunk.js"
+    "static/css/main.e772f827.chunk.css",
+    "static/js/main.69d262ae.chunk.js"
   ]
 }
