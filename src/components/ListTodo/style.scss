@@ -8,15 +8,16 @@
 
   margin-top: 10px;
   .status--success {
-    color: green;
+    color: rgb(18, 209, 18);
   }
   .status--prosser {
-    color: rgb(250, 219, 82);
+    color: rgb(252, 207, 10);
   }
 
   li {
     &:nth-child(1) {
       font-size: 1.3rem;
+      font-weight: 700;
     }
     &:nth-child(2) {
       font-size: 1rem;

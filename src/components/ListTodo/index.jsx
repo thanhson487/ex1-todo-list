@@ -5,7 +5,9 @@ function ListTodo(props) {
   var classNames = require("classnames");
 
   const { listItem } = props;
-  const { statusTodo } = listItem;
+
+  const { statusTodo, id } = listItem;
+  const { onDeleteItem, onEditItem } = props;
   var liClass = classNames({
     status: true,
     "status--success": statusTodo === "1",
@@ -18,8 +20,11 @@ function ListTodo(props) {
         {statusTodo === "1" ? "Đã hoàn thành" : "Chưa hoàn thành"}
       </li>
       <li>
-        <i className="far fa-trash-alt delete" />
-        <i className="fas fa-edit edit" />
+        <i
+          className="far fa-trash-alt delete"
+          onClick={() => onDeleteItem(id)}
+        />
+        <i className="fas fa-edit edit" onClick={() => onEditItem(listItem)} />
       </li>
     </ul>
   );

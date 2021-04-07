@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.scss";
 
 function FormTodo(props) {
-  const { dataShare } = props;
+  const { dataShare, itemEdit, actionEditItem } = props;
+  const { titleTodo, statusTodo, id } = itemEdit;
+
   const [dataForm, setDataForm] = useState({
+    id: "",
     titleTodo: "",
     statusTodo: "1",
   });
@@ -17,15 +20,45 @@ function FormTodo(props) {
       [name]: value,
     });
   };
+  useEffect(() => {
+    if (id !== "") {
+      const setData = () => {
+        setDataForm({
+          id,
+          statusTodo,
+          titleTodo,
+        });
+      };
+      setData();
+    } else {
+      setDataForm({
+        id: "",
+        titleTodo: "",
+        statusTodo: "1",
+      });
+    }
+  }, [itemEdit, id, statusTodo, titleTodo]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dataShare(dataForm);
+    id !== "" ? actionEditItem(dataForm) : dataShare(dataForm);
+
     setDataForm({
+      id: "",
       titleTodo: "",
       statusTodo: "0",
     });
   };
+
+  const onClose = (e) => {
+    e.preventDefault();
+    setDataForm({
+      id: "",
+      titleTodo: "",
+      statusTodo: "0",
+    });
+  };
+
   return (
     <div className="formTodo">
       <p className="formTodo__title">Thêm công việc</p>
@@ -41,6 +74,7 @@ function FormTodo(props) {
             value={dataForm.titleTodo}
             className="form-group__value"
             onChange={handleChange}
+            required
           ></input>
         </div>
         <div className="form-group">
@@ -60,9 +94,12 @@ function FormTodo(props) {
         </div>
         <div className="btn-group">
           <button type="submit" className="btn">
-            Thêm mới
+            {dataForm.id === "" ? "Thêm mới" : "Cập nhập"}
           </button>
-          <button className="btn">Huỷ</button>
+
+          <button type="buton" className="btn" onClick={onClose}>
+            Huỷ
+          </button>
         </div>
       </form>
     </div>
