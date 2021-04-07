@@ -55,11 +55,17 @@ function App() {
       setItemEdit({
         id: "",
         titleTodo: "",
-        statusTodo: "1",
+        statusTodo: "0",
       });
     }
   };
-
+  const setFormDefault = () => {
+    setItemEdit({
+      id: "",
+      titleTodo: "",
+      statusTodo: "0",
+    });
+  };
   return (
     <div className="App">
       <div className="container">
@@ -67,6 +73,7 @@ function App() {
           dataShare={dataShare}
           itemEdit={itemEdit}
           actionEditItem={actionEditItem}
+          setFormDefault={setFormDefault}
         />
         <ShowTodo
           arrList={arrList}

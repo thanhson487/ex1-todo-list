@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./style.scss";
 
 function FormTodo(props) {
-  const { dataShare, itemEdit, actionEditItem } = props;
+  const { dataShare, itemEdit, actionEditItem, setFormDefault } = props;
   const { titleTodo, statusTodo, id } = itemEdit;
 
   const [dataForm, setDataForm] = useState({
@@ -20,6 +20,7 @@ function FormTodo(props) {
       [name]: value,
     });
   };
+
   useEffect(() => {
     if (id !== "") {
       const setData = () => {
@@ -34,7 +35,7 @@ function FormTodo(props) {
       setDataForm({
         id: "",
         titleTodo: "",
-        statusTodo: "1",
+        statusTodo: "0",
       });
     }
   }, [itemEdit, id, statusTodo, titleTodo]);
@@ -52,6 +53,7 @@ function FormTodo(props) {
 
   const onClose = (e) => {
     e.preventDefault();
+    setFormDefault();
     setDataForm({
       id: "",
       titleTodo: "",
@@ -61,7 +63,10 @@ function FormTodo(props) {
 
   return (
     <div className="formTodo">
-      <p className="formTodo__title">Thêm công việc</p>
+      <p className="formTodo__title">
+        {" "}
+        {dataForm.id === "" ? "Thêm mới" : "Cập nhập"}
+      </p>
       <form className="formTodo__form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="titleTodo" className="form-group__title">
