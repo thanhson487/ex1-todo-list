@@ -1,49 +1,71 @@
 import "./App.scss";
 import FormTodo from "./components/FormTodo";
 import ShowTodo from "./components/ShowTodo";
-import React, { useEffect, useState } from "react";
+import Filter from "./components/Filter";
+import React, { Component } from "react";
 import guidGenerator from "./common";
-function App() {
-  const getLocal = JSON.parse(localStorage.getItem("arrayListTodo"));
-  const [arrList, setArrList] = useState(getLocal || []);
 
-  const [itemEdit, setItemEdit] = useState({
-    id: "",
-    titleTodo: "",
-    statusTodo: "1",
-  });
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      arrList: [],
+      itemEdit: {
+        id: "",
+        titleTodo: "",
+        statusTodo: "1",
+      },
+      filter: "-1",
+    };
+  }
 
-  useEffect(() => {
-    localStorage.setItem("arrayListTodo", JSON.stringify(arrList));
-  }, [arrList]);
+  componentDidMount() {
+    const getLocal = JSON.parse(localStorage.getItem("arrayListTodo"));
+    if (getLocal) {
+      this.setState({
+        arrList: getLocal,
+      });
+    } else {
+      this.setState({
+        arrList: [],
+      });
+    }
+  }
 
-  const dataShare = (dataForm) => {
+  componentDidUpdate() {
+    localStorage.setItem("arrayListTodo", JSON.stringify(this.state.arrList));
+  }
+
+  dataShare = (dataForm) => {
     const id = guidGenerator();
-    const arrListNew = [...arrList];
+    const arrListNew = [...this.state.arrList];
     arrListNew.push({
       ...dataForm,
       id,
     });
-
-    setArrList([...arrListNew]);
+    this.setState({
+      arrList: [...arrListNew],
+    });
   };
 
-  const onDeleteItem = (id) => {
-    let arrListNew = [...arrList];
+  onDeleteItem = (id) => {
+    let arrListNew = [...this.state.arrList];
     const index = arrListNew.findIndex((arr) => arr.id === id);
 
     if (index !== -1) {
       arrListNew.splice(index, 1);
-      setArrList(arrListNew);
+      this.setState({
+        arrList: arrListNew,
+      });
     }
   };
 
-  const onEditItem = (data) => {
-    setItemEdit(data);
+  onEditItem = (data) => {
+    this.setState({ itemEdit: data });
   };
 
-  const actionEditItem = (data) => {
-    let arrListNew = [...arrList];
+  actionEditItem = (data) => {
+    let arrListNew = [...this.state.arrList];
     const index = arrListNew.findIndex((arr) => arr.id === data.id);
     if (index !== -1) {
       arrListNew[index] = {
@@ -51,38 +73,71 @@ function App() {
         titleTodo: data.titleTodo,
         statusTodo: data.statusTodo,
       };
-      setArrList(arrListNew);
-      setItemEdit({
-        id: "",
-        titleTodo: "",
-        statusTodo: "0",
+      this.setState({
+        arrList: arrListNew,
+        itemEdit: {
+          id: "",
+          titleTodo: "",
+          statusTodo: "0",
+        },
       });
     }
   };
-  const setFormDefault = () => {
-    setItemEdit({
-      id: "",
-      titleTodo: "",
-      statusTodo: "0",
+  setFormDefault = () => {
+    this.setState({
+      itemEdit: {
+        id: "",
+        titleTodo: "",
+        statusTodo: "0",
+      },
     });
   };
-  return (
-    <div className="App">
-      <div className="container">
-        <FormTodo
-          dataShare={dataShare}
-          itemEdit={itemEdit}
-          actionEditItem={actionEditItem}
-          setFormDefault={setFormDefault}
-        />
-        <ShowTodo
-          arrList={arrList}
-          onDeleteItem={onDeleteItem}
-          onEditItem={onEditItem}
-        />
+  onChangeFilter = (data) => {
+    this.setState({
+      filter: data,
+    });
+  };
+
+  render() {
+    let { arrList } = this.state;
+    console.log(this.state.filter);
+
+    if (this.state.filter === "-1") {
+      arrList = arrList.filter((value) => {
+        return value;
+      });
+    }
+    if (this.state.filter === "1") {
+      arrList = arrList.filter((value) => {
+        return value.statusTodo === "1";
+      });
+    }
+    if (this.state.filter === "0") {
+      arrList = arrList.filter((value) => {
+        return value.statusTodo === "0";
+      });
+    }
+    return (
+      <div className="App">
+        <div className="container">
+          <FormTodo
+            dataShare={(data) => this.dataShare(data)}
+            itemEdit={this.state.itemEdit}
+            actionEditItem={(data) => this.actionEditItem(data)}
+            setFormDefault={() => this.setFormDefault()}
+          />
+          <Filter onChangeFilter={(data) => this.onChangeFilter(data)}>
+            {" "}
+          </Filter>
+          <ShowTodo
+            arrList={arrList}
+            onDeleteItem={(id) => this.onDeleteItem(id)}
+            onEditItem={(data) => this.onEditItem(data)}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;

@@ -1,0 +1,12 @@
+.container-filter {
+  width: 800px;
+  display: flex;
+  justify-content: center;
+
+  .filter {
+    width: 200px;
+    margin-bottom: 10px;
+    color: black;
+    padding: 5px;
+  }
+}
