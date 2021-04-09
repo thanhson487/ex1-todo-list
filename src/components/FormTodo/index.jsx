@@ -82,7 +82,7 @@ class FormTodo extends Component {
     return (
       <div className="formTodo">
         <p className="formTodo__title">
-          {this.state.dataForm.id === "" ? "Thêm mới" : "Cập nhập"}
+          {this.state.dataForm.id === "" ? "Thêm mới" : "Cập nhật"}
         </p>
         <form className="formTodo__form" onSubmit={(e) => handleSubmit(e)}>
           <div className="form-group">
@@ -116,7 +116,7 @@ class FormTodo extends Component {
           </div>
           <div className="btn-group">
             <button type="submit" className="btn">
-              {this.state.dataForm.id ? "Cập nhập" : "Thêm mới"}
+              {this.state.dataForm.id ? "Cập nhật" : "Thêm mới"}
             </button>
 
             <button type="buton" className="btn" onClick={(e) => onClose(e)}>
