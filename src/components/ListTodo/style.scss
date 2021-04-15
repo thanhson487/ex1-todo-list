@@ -1,6 +1,7 @@
 .listTodo {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
 
   list-style: none;
 
@@ -16,31 +17,26 @@
 
   li {
     &:nth-child(1) {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 700;
 
       word-wrap: break-word;
     }
+
     &:nth-child(2) {
-      font-size: 1rem;
-      font-weight: 500;
-
-      margin-top: 5px;
-    }
-
-    &:nth-child(3) {
-      align-self: flex-end;
+      margin-left: auto;
 
       .delete {
         font-size: 1.1rem;
 
-        margin-right: 10px;
+        margin-right: 0px;
         padding: 10px;
 
         cursor: pointer;
 
         &:hover {
           font-weight: 700;
+          color: rgb(250, 190, 116);
         }
       }
       .edit {
@@ -52,6 +48,8 @@
 
         &:hover {
           font-weight: 1000;
+
+          color: rgb(250, 190, 116);
         }
       }
     }

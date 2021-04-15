@@ -1,38 +1,39 @@
 import React, { Component } from "react";
 import "./style.scss";
-var classNames = require("classnames");
+import { connect } from "react-redux";
+import { deleteItemTodo, onClickItemEdit } from "./../../actions/taskTodo";
 
 class ListTodo extends Component {
+  handleDelete = (id) => {
+    this.props.deleteItemTodo(id);
+  };
+
+  handleEdit = (data) => {
+    this.props.onClickItemEdit(data);
+  };
+
   render() {
     const { listItem } = this.props;
-
-    const { statusTodo, id } = listItem;
-    const { onDeleteItem, onEditItem } = this.props;
-    var liClass = classNames({
-      status: true,
-      "status--success": statusTodo === "1",
-      "status--prosser": statusTodo === "0",
-    });
-
     return (
       <ul className="listTodo">
-        <li>{listItem.titleTodo}</li>
-        <li className={liClass}>
-          {statusTodo === "1" ? "Đã hoàn thành" : "Chưa hoàn thành"}
-        </li>
+        <li> {listItem.titleTodo}</li>
         <li>
           <i
             className="far fa-trash-alt delete"
-            onClick={() => onDeleteItem(id)}
+            onClick={() => this.handleDelete(listItem.id)}
           />
           <i
             className="fas fa-edit edit"
-            onClick={() => onEditItem(listItem)}
+            onClick={() => this.handleEdit(listItem)}
           />
         </li>
       </ul>
     );
   }
 }
+const mapDispatchToProps = {
+  deleteItemTodo,
+  onClickItemEdit,
+};
 
-export default ListTodo;
+export default connect(null, mapDispatchToProps)(ListTodo);

@@ -1,37 +1,46 @@
 import React, { Component } from "react";
 import "./style.scss";
+import { connect } from "react-redux";
+import { actionFillter } from "../../actions/taskTodo";
 class Filter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      valueFilter: "-1",
+      keySearch: "",
     };
   }
 
   render() {
-    const { onChangeFilter } = this.props;
-    const onChange = (data) => {
+    const handleChangeSearch = (e) => {
+      const name = e.target.name;
+      const value = e.target.value;
       this.setState({
-        valueFilter: data,
+        [name]: value,
       });
-      onChangeFilter(data);
+    };
+    const onSubmitSearch = (e) => {
+      e.preventDefault();
+      this.props.actionFillter(this.state.keySearch.trim());
     };
     return (
       <div className="container-filter">
-        <select
-          className="filter"
-          name="filter"
-          id="filter"
-          value={this.state.valueFilter}
-          onChange={(e) => onChange(e.target.value)}
-        >
-          <option value="-1">All</option>
-          <option value="1">Đã hoàn thành</option>
-          <option value="0">Chưa hoàn thành</option>
-        </select>
+        <form onSubmit={(e) => onSubmitSearch(e)}>
+          <input
+            name="keySearch"
+            id="seach"
+            className="search"
+            value={this.state.keySearch}
+            onChange={(e) => handleChangeSearch(e)}
+            placeholder="Tìm kiếm"
+          ></input>
+        </form>
       </div>
     );
   }
 }
 
-export default Filter;
+const mapDispatchToProps = {
+  actionFillter,
+};
+
+export default connect(null, mapDispatchToProps)(Filter);

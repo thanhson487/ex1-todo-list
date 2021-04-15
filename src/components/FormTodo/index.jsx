@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./style.scss";
+import { connect } from "react-redux";
+import { onCloseForm, actionEditItem, addData } from "./../../actions/taskTodo";
 
 class FormTodo extends Component {
   constructor(props) {
@@ -13,32 +15,30 @@ class FormTodo extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.itemEdit) {
-      if (nextProps.itemEdit.id !== "") {
-        this.setState({
-          dataForm: {
-            id: nextProps.itemEdit.id,
-            statusTodo: nextProps.itemEdit.statusTodo,
-            titleTodo: nextProps.itemEdit.titleTodo,
-          },
-        });
-      } else {
-        this.setState({
-          dataForm: {
-            id: "",
-            titleTodo: "",
-            statusTodo: "0",
-          },
-        });
-      }
+  componentDidMount() {
+    const { dataForm } = this.props;
+
+    if (dataForm.id !== "") {
+      this.setState({
+        dataForm: {
+          id: dataForm.id,
+          statusTodo: dataForm.statusTodo,
+          titleTodo: dataForm.titleTodo,
+        },
+      });
+    } else {
+      this.setState({
+        dataForm: {
+          id: "",
+          titleTodo: "",
+          statusTodo: "0",
+        },
+      });
     }
   }
 
   render() {
-    const { dataShare, itemEdit, actionEditItem, setFormDefault } = this.props;
-    console.log(itemEdit);
-    const { id } = itemEdit;
+    const { dataForm } = this.props;
 
     const handleChange = (e) => {
       const target = e.target;
@@ -54,9 +54,9 @@ class FormTodo extends Component {
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      id !== ""
-        ? actionEditItem(this.state.dataForm)
-        : dataShare(this.state.dataForm);
+      dataForm.id !== ""
+        ? this.props.actionEditItem(this.state.dataForm)
+        : this.props.addData(this.state.dataForm);
 
       this.setState({
         dataForm: {
@@ -65,11 +65,11 @@ class FormTodo extends Component {
           statusTodo: "0",
         },
       });
+      this.props.onCloseForm();
     };
 
     const onClose = (e) => {
       e.preventDefault();
-      setFormDefault();
       this.setState({
         dataForm: {
           id: "",
@@ -77,14 +77,15 @@ class FormTodo extends Component {
           statusTodo: "0",
         },
       });
+      this.props.onCloseForm();
     };
 
     return (
       <div className="formTodo">
-        <p className="formTodo__title">
-          {this.state.dataForm.id === "" ? "Thêm mới" : "Cập nhật"}
-        </p>
         <form className="formTodo__form" onSubmit={(e) => handleSubmit(e)}>
+          <p className="formTodo__title">
+            {this.state.dataForm.id ? "Cập nhật" : "Thêm mới"}
+          </p>
           <div className="form-group">
             <label htmlFor="titleTodo" className="form-group__title">
               Tên công việc
@@ -129,4 +130,14 @@ class FormTodo extends Component {
   }
 }
 
-export default FormTodo;
+const mapStateToProps = (state) => {
+  return {
+    dataForm: state.dataForm,
+  };
+};
+const mapDispatchToProps = {
+  onCloseForm,
+  addData,
+  actionEditItem,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(FormTodo);
