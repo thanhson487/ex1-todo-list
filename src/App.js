@@ -1,56 +1,34 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
-import AddTodo from "./components/Add";
-import Filter from "./components/Filter";
-import FormTodo from "./components/FormTodo";
-import NotFound from "./components/NotFound";
-import NumberPage from "./components/NumberPage";
-import ShowTodo from "./components/ShowTodo";
+import Menu from "./components/Commons/Header";
+
+import router from "./routers/index";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      arrList: [],
-      countEdit: 0,
-      checkIdEdit: null,
-      openForm: false,
-    };
-  }
-
   render() {
-    const { setForm } = this.props;
     return (
-      <div className="App">
-        <div className="container">
-          <NotFound />
-
-          {setForm ? <FormTodo /> : null}
-
-          <Filter onSearch={(data) => this.onSearch(data)}></Filter>
-          <ShowTodo
-            arrList={this.state.arrList}
-            onDeleteItem={(id) => this.onDeleteItem(id)}
-            onEditItem={(data) => this.onEditItem(data)}
-          />
-          <NumberPage
-            numberPage={this.state.pageNumbers}
-            loadDataPage={this.loadDataPage}
-          ></NumberPage>
-
-          <AddTodo
-            onAddTodo={this.onAddTodo}
-            openForm={this.state.openForm}
-          ></AddTodo>
+      <Router>
+        <div className="App">
+          <Menu></Menu>
+          <div id="container">
+            <Switch>
+              {router.map((value, key) => {
+                return (
+                  <Route
+                    path={value.path}
+                    exact={value.exact}
+                    component={value.component}
+                    key={key}
+                  />
+                );
+              })}
+            </Switch>
+          </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    setForm: state.setForm,
-  };
-};
-export default connect(mapStateToProps, null)(App);
+
+export default App;
