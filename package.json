@@ -1,7 +1,5 @@
 {
-  "name": "ex1-todo-list",
   "version": "0.1.0",
-  "homepage": "https://thanhson487.github.io/ex1-todo-list/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -17,6 +15,7 @@
     "react-dom": "^17.0.2",
     "react-id-generator": "^3.0.1",
     "react-redux": "^7.2.3",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "redux": "^4.0.5",
     "redux-saga": "^1.1.3",

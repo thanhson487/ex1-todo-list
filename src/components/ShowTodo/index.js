@@ -13,9 +13,9 @@ class ShowTodo extends Component {
   renderTodoList = (data) => {
     let arr = [];
 
-    const { listTodo } = this.props;
+    const { listTodoRender } = this.props;
 
-    const arrListNew = listTodo.filter(
+    const arrListNew = listTodoRender.filter(
       (item) => item.statusTodo === JSON.stringify(data)
     );
 
@@ -33,8 +33,6 @@ class ShowTodo extends Component {
     return arr;
   };
   render() {
-    const { listTodo } = this.props;
-
     return (
       <>
         <div className="titleTodo">
@@ -42,11 +40,16 @@ class ShowTodo extends Component {
           <p>Đã hoàn thành</p>
         </div>
         <div className="showTodo">
-          {listTodo.length !== 0 ? (
-            <>
-              <div className="showTodo__left">{this.renderTodoList(0)}</div>
-              <div className="showTodo__right">{this.renderTodoList(1)}</div>
-            </>
+          {this.props.listTodoRender !== null ? (
+            this.props.listTodoRender.length !== 0 &&
+            this.props.listTodo !== null ? (
+              <>
+                <div className="showTodo__left">{this.renderTodoList(0)}</div>
+                <div className="showTodo__right">{this.renderTodoList(1)}</div>
+              </>
+            ) : (
+              ""
+            )
           ) : (
             ""
           )}
@@ -61,7 +64,7 @@ const mapDispatchToProps = {
 };
 const mapStateToProps = (state) => {
   return {
-    listTodo: state.listTodo,
+    listTodoRender: state.Todo.listTodoRender,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ShowTodo);

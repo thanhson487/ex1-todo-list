@@ -1,12 +1,14 @@
 import { combineReducers } from "redux";
-import listTodo from "./listTodo";
+import Todo from "./Todo";
 import setForm from "./setForm";
 import dataForm from "./dataGetForm";
 import errorServer from "./errorServer";
+import page from "./page";
 const rootReducer = combineReducers({
-  listTodo,
+  Todo,
   setForm,
   dataForm,
   errorServer,
+  page,
 });
 export default rootReducer;

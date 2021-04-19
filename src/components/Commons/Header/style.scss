@@ -1,0 +1,26 @@
+.menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  color: rgb(83, 82, 82);
+  .containerImage {
+    width: 50px;
+    height: 50px;
+    img {
+      display: block;
+      max-height: 100%;
+    }
+  }
+
+  &__nav {
+    .styleLink {
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      &:nth-child(1) {
+        margin-right: 10px;
+      }
+    }
+  }
+}

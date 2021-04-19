@@ -1,35 +1,40 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { actionsPage } from "../../actions/taskTodo";
+
 import "./styles.scss";
 
 class NumberPage extends Component {
-  directional(numPage) {
-    const { loadDataPage } = this.props;
-    loadDataPage(numPage);
-  }
+  handleClickPage = (page) => {
+    this.props.actionsPage(page);
+  };
 
-  renderNumberPage = (numberPage) => {
+  renderPage = () => {
     let render = [];
-
-    if (numberPage) {
-      render = numberPage.map((num) => {
-        return (
-          <span onClick={() => this.directional(num)} key={num}>
-            {num}
-          </span>
-        );
-      });
+    let { pageNumber } = this.props.page;
+    for (let i = 1; i <= pageNumber; i++) {
+      render.push(
+        <div
+          className="iconPage"
+          onClick={() => this.handleClickPage(i)}
+          key={i}
+        >
+          {i}
+        </div>
+      );
     }
-
     return render;
   };
   render() {
-    const { numberPage } = this.props;
-    return (
-      <div className="NumberPageContainer">
-        {this.renderNumberPage(numberPage)}
-      </div>
-    );
+    return <div className="NumberPageContainer">{this.renderPage()}</div>;
   }
 }
-
-export default NumberPage;
+const mapDispatchToProps = {
+  actionsPage,
+};
+const mapStateToProps = (state) => {
+  return {
+    page: state.page,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(NumberPage);

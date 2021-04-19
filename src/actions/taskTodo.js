@@ -17,6 +17,18 @@ export const fetchListTaskFalse = () => {
     type: actionTodos.FETCH_TODO_FALSE,
   };
 };
+export const fetchListRender = (data) => {
+  return {
+    type: actionTodos.FETCH_LIST_RENDER,
+  };
+};
+
+export const fetchListRenderSuccess = (data) => {
+  return {
+    type: actionTodos.FETCH_LIST_RENDER_SUCCESS,
+    payload: data,
+  };
+};
 
 export const addData = (data) => {
   return {
@@ -89,5 +101,23 @@ export const onOpenForm = () => {
 export const onCloseForm = () => {
   return {
     type: actionTodos.ON_CLOSE_FORM,
+  };
+};
+export const actionsPage = (data) => {
+  return {
+    type: actionTodos.ACTION_PAGE,
+    payload: data,
+  };
+};
+export const renderPage = () => {
+  return {
+    type: actionTodos.RENDER_PAGE,
+  };
+};
+
+export const getPageSuccess = (data) => {
+  return {
+    type: actionTodos.GET_PAGE_SUCCESS,
+    payload: data,
   };
 };

@@ -8,14 +8,6 @@
 
   color: #fff;
 }
-.container {
-  width: 900px;
-
-  display: flex;
-  flex-direction: column;
-
-  position: relative;
-}
 .App {
   background-image: url("./assets/images_background.jpeg");
   background-repeat: no-repeat;
@@ -24,11 +16,14 @@
   height: 100vh;
 
   display: flex;
-  justify-content: center;
+  flex-direction: column;
 
   z-index: 1;
   position: relative;
   overflow: hidden;
-  justify-content: center;
   // min-height: 100vh;
+  #container {
+    display: flex;
+    justify-content: center;
+  }
 }
